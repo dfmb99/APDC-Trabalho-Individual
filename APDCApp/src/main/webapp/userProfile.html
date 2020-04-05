@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>APDC - App</title>
+    <script>
+		myStorage = window.localStorage
+    	getData(myStorage.getItem('token'))
+    	
+    	function getData(token) {
+    		if(token == null) {
+    			window.location.replace("index.html");
+    			return;
+    		}
+    		myStorage = window.localStorage
+        	var xhttp = new XMLHttpRequest();
+        	xhttp.onreadystatechange = function() {
+        		if (this.readyState == 4 && this.status == 200) {
+        	    	const obj = JSON.parse(xhttp.responseText)
+        	    	document.getElementById('username').value = obj.username
+        	    	document.getElementById('email').value = obj.email
+        	    	document.getElementById('landlinePhone').value = obj.landlinePhone
+        	    	document.getElementById('mobilePhone').value = obj.mobilePhone
+        	    	document.getElementById('street').value = obj.street
+        	    	document.getElementById('cState').innerHTML = 'Current account state: <b>' + obj.accState + '</b>'
+        	    	document.getElementById('cProfile').innerHTML = 'Current account profile: <b>' + obj.profile + '</b>'
+        	    	document.getElementById('cRole').innerHTML = 'Current account role: <b>' + obj.role + '</b>'
+        	    	if(obj.role !== 'USER') {
+        	    		document.getElementById('superUser').style.display = 'block'
+        	    	}
+        	    	listUser()
+        	    }else if(this.readyState == 4 && this.status == 403){
+        	    	myStorage.removeItem('token');
+            	    window.location.replace("index.html");
+        	    }
+        	 }
+        	 xhttp.open("POST", "rest/user/data", true);
+        	 xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+        	 xhttp.send(token);
+    	}
+		
+    	function logout() {
+    		myStorage = window.localStorage
+        	var xhttp = new XMLHttpRequest();
+        	xhttp.onreadystatechange = function() {
+        		if (this.readyState == 4 && this.status == 200) {
+        			myStorage.removeItem('token');
+            	    window.location.replace("index.html");
+        		}else{
+        			document.getElementById('error').innerHTML = xhttp.responseText
+        		}
+        	}
+        	xhttp.open("POST", "rest/user/logout", true);
+        	xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+        	const token = myStorage.getItem('token')
+        	xhttp.send(token);
+    	}
+    	
+    	function removeUser() {
+    		myStorage = window.localStorage
+        	var xhttp = new XMLHttpRequest();
+        	xhttp.onreadystatechange = function() {
+        		if (this.readyState == 4 && this.status == 200) {
+        			document.getElementById('userForm').style.display = 'none'
+        			document.getElementById('superUser').style.display = 'none'
+        			myStorage.removeItem('token');
+        	    	document.getElementById('title').innerHTML = 'User removed with sucess. Redirecting in 3 seconds...'
+        	    	    setTimeout(function(){ 
+        	    	    	window.location.replace("index.html");
+        	    	    }, 3000);
+        	    }else if(this.readyState == 4){
+        	    	document.getElementById('userForm').style.display = 'none'
+        	    	myStorage.removeItem('token');
+        	    	document.getElementById('title').innerHTML = xhttp.responseText + ' Redirecting in 2 seconds...'
+        	    	setTimeout(function(){ 
+    	    	    	window.location.replace("index.html");
+    	    	    }, 2000);
+        	    }
+        	 }
+        	 const token = JSON.parse(myStorage.getItem('token'))
+        	 const input = document.getElementById('userR').value
+        	 var toRemove
+        	 if(input != '') {
+        		 toRemove = input
+        	 } else {
+        		 toRemove = token.username
+        	 }
+        	 xhttp.open("POST", "rest/user/remove/" + toRemove, true);
+        	 xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+        	 xhttp.send(myStorage.getItem('token'));
+    	}
+    	
+    	function editUser() {
+    		myStorage = window.localStorage
+    		const p = document.getElementById("profile");
+        	const a = document.getElementById("state");
+    		var obj = {
+    			username: document.getElementById('username').value,
+    			profile: p.options[p.selectedIndex].text,
+				landlinePhone: document.getElementById('landlinePhone').value,
+				mobilePhone: document.getElementById('mobilePhone').value,
+				street: document.getElementById('street').value,
+				accState: a.options[a.selectedIndex].text
+        	}
+        	var xhttp = new XMLHttpRequest();
+        	xhttp.onreadystatechange = function() {
+        		if (this.readyState == 4 && this.status == 200) {
+        			getData(myStorage.getItem('token'))
+        	    	document.getElementById('msg').innerHTML = 'User edited with sucess.'
+        		}else if (this.readyState == 4 && (this.status == 400 || this.status == 403)){
+        			document.getElementById('error').innerHTML = xhttp.responseText
+        		}
+        	}
+        	const token = JSON.parse(myStorage.getItem('token'))
+        	xhttp.open("POST", "rest/user/edit/" + token.tokenID, true);
+        	xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+        	xhttp.send(JSON.stringify(obj));
+    	}
+    	function listUser() {
+    		myStorage = window.localStorage
+        	var xhttp = new XMLHttpRequest();
+        	xhttp.onreadystatechange = function() {
+        		if (this.readyState == 4 && this.status == 200) {
+        			document.getElementById("userList").innerHTML = "";
+        	    	const obj = JSON.parse(xhttp.responseText)
+        	    	for(var i = 0; i < obj.length; i++) {
+        	    		var x = document.createElement("LI");
+        	    		var t = document.createTextNode(obj[i]);
+        	    		x.appendChild(t);
+        	    		document.getElementById("userList").appendChild(x);
+        	    	}
+        	    }else if(this.readyState == 4 && this.status == 403){
+        	    	myStorage.removeItem('token');
+            	    window.location.replace("index.html");
+        	    }
+        	 }
+        	 xhttp.open("POST", "rest/user/list", true);
+        	 xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+        	 xhttp.send(myStorage.getItem('token'));
+    	}
+    </script>
+  </head>
+
+  <body>
+    <h3 id="title">User Profile</h3>
+     <form id="userForm" method="POST">
+    	<label for="username">Username:</label><br>
+    		<input type="text" id="username" name="username" disabled><br>
+    	<label for="email">Email:</label><br>
+    		<input type="email" id="email" name="email" disabled><br>
+    	<label for="landlinePhone">LandlinePhone:</label><br>
+    		<input type="text" id="landlinePhone" name="landlinePhone"><br>
+    	<label for="mobilePhone">MobilePhone:</label><br>
+    		<input type="text" id="mobilePhone" name="mobilePhone"><br>
+    	<label for="street">Street:</label><br>
+    		<input type="text" id="street" name="street"><br>
+    	<br>	
+    	<p id="cState"></p>
+    	<p id="cProfile"></p>
+    	<p id="cRole"></p>
+    	<label for="state">Choose account state:</label>
+  			<select id="state" name="state">
+   	 			<option value="active">Active</option>
+    			<option value="inactive">Inactive</option>
+  			</select><br>
+  		<label for="profile">Choose account profile:</label>
+  			<select id="profile" name="profile">
+   	 			<option value="public">Public</option>
+    			<option value="private">Private</option>
+  			</select><br>
+    	<br><input type="button" onclick="editUser()" value="Edit Fields">
+    	<input type="button" onclick="removeUser()" value="Remove user">
+    	<p id="msg" style="color:green"></p>
+    	<p id="error" style="color:red"></p>
+    	<a id="logout" href="javascript:logout()">Log out</a>
+    </form><br>
+    <div id="superUser" style="display:none; width: 300px; padding:10px; background-color:#e0e0eb">
+    	<h4>Super user panel:</h4>
+    	<input type="text" id="userR" name="userR" placeholder="Username to remove"><input type="button" onclick="removeUser()" value="Remove"><br>
+    </div>
+    <div id="ist" style="position: relative; margin-left: 300px; margin-top: -490px; width: 200px; padding:10px; background-color:#e0e0eb">
+    	<h4>Public user list:</h4>
+    	<ul id="userList">
+		</ul>
+    </div>
+  </body>
+</html>

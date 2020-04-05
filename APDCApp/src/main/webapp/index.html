@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>APDC - App</title>
+    <script>
+    	myStorage = window.localStorage
+    	window.onload = function () {
+    		if (myStorage.getItem('token') != null) {
+    			window.location.replace("userProfile.html");
+    		}	
+    	}
+		
+    	function loginReq() {
+    		var obj = {
+    			username: document.getElementById('username').value,
+    			password: document.getElementById('pwd').value
+    		}
+    	  	var xhttp = new XMLHttpRequest();
+    	  	xhttp.onreadystatechange = function() {
+    	    if (this.readyState == 4 && this.status == 200) {
+    	      myStorage = window.localStorage
+    	      myStorage.setItem('token', xhttp.responseText)
+    	      window.location.replace("userProfile.html")
+    	    }else if (this.readyState == 4 && (this.status == 400 || this.status == 403)){
+    	    	document.getElementById('error').innerHTML = xhttp.responseText
+    	    }
+    	  }
+    	  xhttp.open("POST", "rest/login/v2", true);
+    	  xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+    	  xhttp.send(JSON.stringify(obj));
+    	}
+    </script>
+  </head>
+
+  <body>
+    <h3>Login:</h3>
+
+    <form id="loginForm" method="POST">
+    	<label for="username">Username:</label><br>
+    		<input type="text" id="username" name="username"><br>
+    	<label for="pwd">Password:</label><br>
+    		<input type="password"id="pwd" id="pwd" name="pwd"><br>
+    	<br><input type="button" onclick="loginReq()" value="Login"> <input type="button" style="margin-left:2em" onclick="location.href='register.html';" value="Not Registered yet?">
+    	<p id="error" style="color:red"></p>
+    </form>
+  </body>
+</html>

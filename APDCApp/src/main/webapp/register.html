@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>APDC - App</title>
+    <script>
+    	myStorage = window.localStorage
+		if (myStorage.getItem('token') != null) {
+			window.location.replace("userProfile.html");
+		}
+    	
+    	function registReq() {
+    		const p = document.getElementById("profile");
+        	const a = document.getElementById("state");
+    		var obj = {
+    			username: document.getElementById('username').value,
+    			email: document.getElementById('email').value,
+    			password: document.getElementById('pwd').value,
+    			confirmation: document.getElementById('pwd2').value,
+    			profile: p.options[p.selectedIndex].text,
+    			landlinePhone: document.getElementById('landlinePhone').value,
+    			mobilePhone: document.getElementById('mobilePhone').value,
+    			street: document.getElementById('street').value,
+    			accState: a.options[a.selectedIndex].text
+    		}
+    	  	var xhttp = new XMLHttpRequest();
+    	  	xhttp.onreadystatechange = function() {
+    	    if (this.readyState == 4 && this.status == 200) {
+    	      document.getElementById('registrationForm').style.display = 'none'
+    	      document.getElementById('title').innerHTML = 'Registration sucessfully. Redirecting in 3 seconds...'
+    	    setTimeout(function(){ 
+    	    	window.location.replace("index.html");
+    	    }, 3000);
+    	    }else if (this.readyState == 4 && (this.status == 400 || this.status == 403)){
+    	    	document.getElementById('error').innerHTML = xhttp.responseText
+    	    }
+    	  }
+    	  xhttp.open("POST", "rest/register/v2", true);
+    	  xhttp.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+    	  xhttp.send(JSON.stringify(obj));
+    	}
+    </script>
+  </head>
+
+  <body>
+    <h3 id="title">Registration:</h3>
+    <form id="registrationForm" method="POST">
+    	<label for="username">Username:</label><br>
+    		<input type="text" id="username" name="username"><br>
+    	<label for="email">Email:</label><br>
+    		<input type="email" id="email" name="email"><br>
+    	<label for="pwd">Password:</label><br>
+    		<input type="password" id="pwd" name="pwd"><br>
+    	<label for="pwd2">Confirmation:</label><br>
+    		<input type="password" id="pwd2" name="pwd2"><br>
+    	<label for="landlinePhone">LandlinePhone:</label><br>
+    		<input type="text" id="landlinePhone" name="landlinePhone"><br>
+    	<label for="mobilePhone">MobilePhone:</label><br>
+    		<input type="text" id="mobilePhone" name="mobilePhone"><br>
+    	<label for="street">Street:</label><br>
+    		<input type="text" id="street" name="street"><br>
+    	<br>	
+    	<label for="state">Choose account state:</label>
+  			<select id="state" name="state">
+   	 			<option value="active">Active</option>
+    			<option value="inactive">Inactive</option>
+  			</select><br>
+  		<label for="profile">Choose account profile:</label>
+  			<select id="profile" name="profile">
+   	 			<option value="public">Public</option>
+    			<option value="private">Private</option>
+  			</select><br>
+    	<br><input type="button" onclick="registReq()" value="Register"> <input type="button" style="margin-left:2em" onclick="location.href='index.html';" value="Login Page">
+    	<p id="error" style="color:red"></p>
+    </form>
+  </body>
+</html>

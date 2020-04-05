@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bionic-mercury-271711",
+  "private_key_id": "3fd369bc8e637d08d40245ab1925903bf5e8e06a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQChUTtz7toHcefC\nKx0dzsttj2+uL5PbGClHVbj1IHh5euJK5I8WjP5LWqTvkfu67GpBQKWvtfJtxm80\nyC7JKR5mMIUBK8s6r23XaA4FfY3K+Kh/qSteUt1mdc0hp9b3Q49XCDmBozZ6Cpfh\n/WoiVBUWPNiX/KfqKAZfbIFLNUrg+sI2PdWQvq1k9CkbZknNvHp3oTzh0bw5Kwvd\nGAPyV6iYO34442QCNGbTaA2qi/nuot+ukZ8bdtZHoiL2jb5mzBfJERfSNwEnhQc4\nfonP4j1EpiAarmGCQONY2eL3Eolz/uN4rfUbhl0/C1gmog+7eNmwJNEVUaPMSJ6h\n/gD/fp7BAgMBAAECggEAAkzaNWeQL5iVliUVNAem4rVfrY/sZJCTtbqLk8hXau4m\nPvybLCZpLajrjL5l6LwAWi0vSqAITpWgkDffs8jhq/HikuAfeI8T6KUxVF1+XqTW\n4lx+rax2V3C3+sAr52pY11ge0awCl80N9jYd0drVitPN7+V9hYQd7oVNkvlx448u\nfwcdIHr3WZU7YD9xi+wTjGkDMFFWqW2oQs7+jYIOJrAwHmBOqUSlAncRbfbN3wCk\ndG8cPZ3n97FTDfmFiHujXWFrMYXeLbu90bKJ6SU4k4GhATiUH2qL/cqqQXBQy47u\nDsoLtw8GdGaNmCgo1AlcLHPVV2uYWnYN+rheHOFVAQKBgQDOmYu4vvMPdiaVVI1E\nL8cX2Mfn82HTeV5aGq0abCk4Dtnb0xjUqkW3KySekCoQfvuD6xga+mjxqTkZw4TY\njKrrER4dE2mYKz70LTTnO+w/8H+BBq4P3MinVEZnnpYMs1GmA9yJkCFSIDNtJ1v8\nI/TP5OUkb8Ii9telrezr6IVdAQKBgQDH49c4WM4FngAPIskJAnoATF2KRyRGc67e\nKCuxpHUQ5GBLzui49E+1HEfLbopQHegU7m/KSq4H7lX/T5k/xjIdlQQRb01bZbSi\n8YHKWksD7lpeaoqpoLtbB/QMX2NjEOhQANqlxLH9OaDVnDgYruh7I84DNGYgWaRf\nAUiogRaBwQKBgQCnFzAVvvm964TRCY0nNK0E8GLdic34xxQ0M5cE462ClSBF1bkj\nZoLz3YTEaTxcExdAXgck6pmtuXthBuyOZ1Zkv3dndKfWVkOYIGfFDIXKQKweolRs\np9fw3QwEChK5Ot4yMrVO3K7WSQzOnyKaDkqVST659VlCBfnrGXugYHJcAQJ/Bj8Y\neqpLxeEqH072+VEafufkBG40s/7peAfJVcPN5Lk+SSAuJZl85Cv+El1h9R76Ia1R\n0QCEb7sC9PeH0nZfGo2Nkv3nbPPAsVbat3ga4ASSzmCF9McRE8cr2Tch4/ajS9y6\n+HMtHLywSfyXxC2zFiYIShFZH6mteUqQ+rMOAQKBgGlNScrtCTQkgJGCyfF84vXK\nARjwSRRyk40rBoAlXvwuYaKv7fyhy3uMgNZjZ/akL0rhu5eEZskR0Lyj88xLcbhG\n4OECXqhCPoKtc+rLpuMUN/AGKpkOhlg6D4HJagAUl+4qll8ozEHdpeMO16Y+0rby\n++aH0nLMhzR7ElFFZCh6\n-----END PRIVATE KEY-----\n",
+  "client_email": "dfmb-222@bionic-mercury-271711.iam.gserviceaccount.com",
+  "client_id": "117273075618000218937",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dfmb-222%40bionic-mercury-271711.iam.gserviceaccount.com"
+}
