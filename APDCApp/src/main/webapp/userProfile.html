@@ -70,6 +70,7 @@
         	    	    }, 3000);
         	    }else if(this.readyState == 4){
         	    	document.getElementById('userForm').style.display = 'none'
+        	    	document.getElementById('superUser').style.display = 'none'
         	    	myStorage.removeItem('token');
         	    	document.getElementById('title').innerHTML = xhttp.responseText + ' Redirecting in 2 seconds...'
         	    	setTimeout(function(){ 
