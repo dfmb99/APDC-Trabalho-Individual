@@ -1,16 +1,11 @@
 package pt.unl.fct.di.apdc.firstwebapp.resources;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
@@ -21,10 +16,6 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import com.google.cloud.datastore.Key;
-import com.google.cloud.datastore.Query;
-import com.google.cloud.datastore.QueryResults;
-import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
-import com.google.appengine.repackaged.com.google.protobuf.StringValue;
 import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
