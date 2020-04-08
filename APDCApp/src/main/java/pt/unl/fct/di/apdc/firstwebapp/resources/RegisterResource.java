@@ -14,7 +14,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
-import com.google.cloud.datastore.PathElement;
 import com.google.cloud.datastore.Transaction;
 import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.Datastore;
